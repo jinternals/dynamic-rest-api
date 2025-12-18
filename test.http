@@ -1,0 +1,84 @@
+GET localhost:9091/config?page=0&size=3&sort=price,desc&ownerId=owner1
+Content-Type: application/json
+
+###
+
+POST http://localhost:9091/config
+Content-Type: application/json
+
+{
+  "order_id": "123",
+  "event": "PLACED",
+  "total_price": 100.0,
+  "products": [
+    {
+      "product_id": "p1",
+      "price": 50.0,
+      "quantity": 2
+    }
+  ]
+}
+
+###
+
+POST http://localhost:9091/config
+Content-Type: application/json
+
+{
+  "order_id": "123",
+  "event": "INVALID_EVENT"
+}
+
+###
+POST http://localhost:9091/product
+Content-Type: application/json
+
+{
+  "name": "Super Gizmo",
+  "details": {
+    "price": {
+      "value": 99.99,
+      "unit": "USD"
+    },
+    "description": "The best gizmo ever."
+  }
+}
+
+
+###
+POST http://localhost:9091/product
+Content-Type: application/json
+
+{
+  "name": "Super Gizmo"
+}
+
+###
+POST http://localhost:9091/product
+Content-Type: application/json
+
+{
+  "name": "Super Gizmo",
+  "details": {
+    "price": {
+      "value": 99.99
+    },
+    "description": "The best gizmo ever."
+  }
+}
+
+###
+POST http://localhost:9091/product
+Content-Type: application/json
+
+{
+  "name": "Super Gizmo",
+  "details": {
+    "price": {
+      "value": -99.99,
+      "unit": "USD"
+    },
+    "description": "The best gizmo ever."
+  }
+}
+

@@ -1,0 +1,21 @@
+
+spring:
+  application:
+    name: dynamic-config-store
+ofs:
+  dynamic:
+    endpoints:
+        - path: /product
+          method: POST
+          schema: classpath:/schema/product-schema.json
+        - path: /product/{id}
+          method: PUT
+          schema: classpath:/schema/product-schema.json
+        - path: /product/{id}
+          method: GET
+        - path: /product
+          method: GET
+
+
+server:
+  port: 9091
