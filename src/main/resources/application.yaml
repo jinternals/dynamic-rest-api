@@ -1,21 +1,26 @@
-
 spring:
   application:
-    name: dynamic-config-store
+    name: dynamic-rest-api
+  couchbase:
+    connection-string: couchbase://localhost
+    username: Administrator
+    password: password
+  data:
+    couchbase:
+      bucket-name: dynamic-rest-api
+
 ofs:
   dynamic:
     endpoints:
-        - path: /product
-          method: POST
-          schema: classpath:/schema/product-schema.json
-        - path: /product/{id}
-          method: PUT
-          schema: classpath:/schema/product-schema.json
-        - path: /product/{id}
-          method: GET
-        - path: /product
-          method: GET
-
-
+      - path: /product
+        method: POST
+        schema: classpath:/schema/product-schema.json
+      - path: /product/{id}
+        method: PUT
+        schema: classpath:/schema/product-schema.json
+      - path: /product/{id}
+        method: GET
+      - path: /product
+        method: GET
 server:
   port: 9091

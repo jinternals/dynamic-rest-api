@@ -1,0 +1,36 @@
+services:
+  db:
+    image: couchbase:community-7.1.1
+    ports:
+      - "8091-8096:8091-8096"
+      - "11210-11211:11210-11211"
+    volumes:
+      - ./data/couchbase-data:/opt/couchbase/var
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8091/ui/index.html"]
+      interval: 10s
+      timeout: 10s
+      retries: 20
+
+  db-init:
+    image: couchbase:community-7.1.1
+    depends_on:
+      db:
+        condition: service_healthy
+    entrypoint:
+      - /bin/bash
+      - -c
+      - |
+        echo "Waiting for Couchbase to be ready..."
+        sleep 5 
+
+        # Initialize Node
+        couchbase-cli node-init -c db --node-init-data-path /opt/couchbase/var/lib/couchbase/data --node-init-index-path /opt/couchbase/var/lib/couchbase/data --node-init-hostname db -u Administrator -p password
+
+        # Initialize Cluster
+        couchbase-cli cluster-init -c db --cluster-username Administrator --cluster-password password --services data,index,query --cluster-ramsize 1024 --cluster-index-ramsize 256
+
+        # Create Bucket
+        couchbase-cli bucket-create -c db --username Administrator --password password --bucket=dynamic-rest-api --bucket-type=couchbase --bucket-ramsize=256
+
+        echo "Couchbase initialized successfully"
