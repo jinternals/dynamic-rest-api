@@ -13,9 +13,25 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:9091/product/697f9e6d-f835-4e94-9865-0cb260bcd27a
+POST http://localhost:9091/product
+Content-Type: application/json
+
+{
+  "name": "Iphone pro",
+  "details": {
+    "price": {
+      "value": 9.99,
+      "unit": "USD"
+    },
+    "description": "The laptop ever."
+  }
+}
+
+
+###
+GET http://localhost:9091/product/f597ccb7-32f5-4751-bfed-317deadbede3
 Content-Type: application/json
 
 ###
-GET http://localhost:9091/product?page=0&size=3&sort=price,desc&ownerId=owner1
+GET http://localhost:9091/product?page=0&size=3&sort=details.price.value,desc
 Content-Type: application/json

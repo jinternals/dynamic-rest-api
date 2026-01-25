@@ -9,18 +9,18 @@ spring:
     couchbase:
       bucket-name: dynamic-rest-api
 
-ofs:
-  dynamic:
-    endpoints:
-      - path: /product
-        method: POST
-        schema: classpath:/schema/product-schema.json
-      - path: /product/{id}
-        method: PUT
-        schema: classpath:/schema/product-schema.json
-      - path: /product/{id}
-        method: GET
-      - path: /product
-        method: GET
+
+dynamic:
+  endpoints:
+    - path: /product
+      method: POST
+      schema: classpath:/schema/product-schema.json
+    - path: /product/{id}
+      method: PUT
+      schema: classpath:/schema/product-schema.json
+    - path: /product/{id}
+      method: GET
+    - path: /product
+      method: GET
 server:
   port: 9091
